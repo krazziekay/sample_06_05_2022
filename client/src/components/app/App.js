@@ -1,5 +1,5 @@
 const App = () => (
-  <div>This is my App</div>
+  <div>This is my App - kAy</div>
 );
 
 export default App;
