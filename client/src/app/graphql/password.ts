@@ -9,3 +9,13 @@ const passwordQuery = gql`
         }
     }
 `;
+
+const addPasswordMutation = gql`
+    mutation addPassword {
+        addPassword(domain: $domain, pwd: $pwd, email: $email) {
+            domain
+            email
+            pwd
+        }
+    }
+`;
