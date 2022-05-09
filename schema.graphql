@@ -1,0 +1,15 @@
+type Query {
+  password: [Password!]
+}
+
+type Mutation {
+  addPassword(domain: String!, email: String!, pwd: String): Password!
+}
+
+
+# Types
+type Password {
+  domain: String!
+  email: String!
+  pwd: String!
+}
