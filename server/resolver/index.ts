@@ -1,4 +1,4 @@
-import { Password, Resolvers } from './__generated/resolvers-types';
+import { Password, Resolvers } from '../__generated/resolvers-types';
 
 // TODO: replace by an actual Database
 const store = {
