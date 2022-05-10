@@ -11,7 +11,7 @@ const PasswordList = () => {
             <div>Loading...</div>
         ) : (
             <>
-            {data.password.map(p => (
+            {data.password && data.password.map(p => (
                 <div>{p.domain} - {p.email} - {p.pwd}</div>
             ))}
             </>     

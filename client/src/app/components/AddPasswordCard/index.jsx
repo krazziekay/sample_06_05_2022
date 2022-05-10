@@ -38,45 +38,48 @@ const AddPasswordCard = () => {
         </div>
         <hr />
         {addNewPassword && (
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Controller
-                control={control}
-                name="domain"
-                label="Domain"
-                rules={{ required: true }}
-                render={({ field }) => (
-                    <div>
-                    <label>Domain</label>
-                    <input type="text" {...field}/>
-                    </div>
-                )}
-                />
-                <Controller
-                control={control}
-                name="email"
-                label="Email"
-                rules={{ required: true }}
-                render={({ field }) => (
-                    <div>
-                    <label>Email</label>
-                    <input type="email" {...field}/>
-                    </div>
-                )}
-                />
-                <Controller
-                control={control}
-                name="password"
-                label="Password"
-                rules={{ required: true }}
-                render={({ field }) => (
-                    <div>
-                    <label>Password</label>
-                    <input type="text" {...field}/>
-                    </div>
-                )}
-                />
-                <input type="submit" value="Save" />
-            </form>
+            <>
+              <button onClick={() => setAddNewPassword(false)}>X</button>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                  <Controller
+                  control={control}
+                  name="domain"
+                  label="Domain"
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                      <div>
+                      <label>Domain</label>
+                      <input type="text" {...field}/>
+                      </div>
+                  )}
+                  />
+                  <Controller
+                  control={control}
+                  name="email"
+                  label="Email"
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                      <div>
+                      <label>Email</label>
+                      <input type="email" {...field}/>
+                      </div>
+                  )}
+                  />
+                  <Controller
+                  control={control}
+                  name="password"
+                  label="Password"
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                      <div>
+                      <label>Password</label>
+                      <input type="text" {...field}/>
+                      </div>
+                  )}
+                  />
+                  <input type="submit" value="Save" />
+              </form>
+            </>
         )}
         </>
     );

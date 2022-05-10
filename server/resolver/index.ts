@@ -1,15 +1,7 @@
 import { Password, Resolvers } from '../__generated/resolvers-types';
 
 // TODO: replace by an actual Database
-const store = {
-  password: [
-    {
-      email: 'kay.krazzie@gmail.com',
-      pwd: 'kamala2501',
-      domain: 'Google'
-    },
-  ]
-} as any;
+const store = {} as any;
 
 const resolvers: Resolvers = {
     Query: {
