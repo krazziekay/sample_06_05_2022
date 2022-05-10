@@ -1,3 +1,4 @@
+import { Paper, Table, TableContainer, TableRow, TableHead, TableBody, TableCell, Typography } from '@mui/material';
 import React from 'react';
 import { useGetPasswordQuery } from '../../__generated/schema';
 
@@ -8,13 +9,29 @@ const PasswordList = () => {
     return (
         <>
         {loading ? (
-            <div>Loading...</div>
+            <Typography variant="h1" gutterBottom>Loading...</Typography>
         ) : (
-            <>
-            {data.password && data.password.map(p => (
-                <div>{p.domain} - {p.email} - {p.pwd}</div>
-            ))}
-            </>     
+            <TableContainer component={Paper}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Domain</TableCell>
+                            <TableCell>Email</TableCell>
+                            <TableCell>Password</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {data.password && data.password.map(p => (
+                            <TableRow>
+                                <TableCell>{p.domain}</TableCell>
+                                <TableCell>{p.email}</TableCell>
+                                <TableCell>{p.pwd}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+                
+            </TableContainer>     
         )}
         </>
     )
