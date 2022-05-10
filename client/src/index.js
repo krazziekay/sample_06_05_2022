@@ -1,7 +1,7 @@
 import React from 'react';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import ReactDOM from 'react-dom/client';
-import App from './app/components/Password/Password';
+import App from './app/components/Password';
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
