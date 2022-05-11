@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import { useAddPasswordMutation } from '../../__generated/schema';
 import { useForm, Controller } from 'react-hook-form'; 
-import { Button, Card, CardContent, TextField } from '@mui/material';
+import { Button, Card, CardContent, TextField, Alert, Snackbar } from '@mui/material';
 import { styles } from './index.styles';
+
+const defaultAlert = {
+  visibility: false,
+  type: '',
+  message: '',
+};
 
 const AddPasswordCard = () => {
     const [addNewPassword, setAddNewPassword] = useState(false);
+    const [alert, setAlert] = useState(defaultAlert);
     const { handleSubmit, reset, control, formState: { errors } } = useForm();
     const [addPassword, {loading}] = useAddPasswordMutation();
   
@@ -21,9 +28,17 @@ const AddPasswordCard = () => {
             'getPassword'
           ]
         });
-        alert('Successfully Added');
+        setAlert({
+          visibility: true,
+          type: 'success',
+          message: 'Successfully Added',
+        });
       } catch(e) {
-        alert('Failed to Add', JSON.stringify(e));
+        setAlert({
+          visibility: true,
+          type: 'error',
+          message: 'Failed to add',
+        });
       }
     
       setAddNewPassword(false);
@@ -83,6 +98,16 @@ const AddPasswordCard = () => {
                 Add Password
             </Button>
           )}
+          <Snackbar 
+            open={alert.visibility}
+            autoHideDuration={3000}
+            anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
+            onClose={() => setAlert(defaultAlert)}
+          >
+            <Alert variant="outlined" severity={alert.type}>
+              {alert.message}
+            </Alert>
+          </Snackbar>
         </>
     );
 };
