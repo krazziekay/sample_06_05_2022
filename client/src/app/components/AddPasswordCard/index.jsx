@@ -48,7 +48,7 @@ const AddPasswordCard = () => {
     return (
         <>
           {addNewPassword ? (
-              <Card style={styles.card}>
+              <Card>
                 <CardContent style={styles.container}>
                   <Button style={styles.closeBtn} variant="text" onClick={() => setAddNewPassword(false)}>x</Button>
                   <form style={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
@@ -92,7 +92,7 @@ const AddPasswordCard = () => {
                 </CardContent>
               </Card>
           ) : (
-            <Button style={styles.addBtn} variant="contained" onClick={() => {
+            <Button variant="contained" onClick={() => {
                 setAddNewPassword(true);
                 }}>
                 Add Password

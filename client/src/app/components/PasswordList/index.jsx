@@ -7,7 +7,7 @@ const PasswordList = () => {
     const {data, loading} = useGetPasswordQuery();
 
     return (
-        <>
+        <div style={styles.container}>
         {loading ? (
             <Typography variant="h1" gutterBottom>Loading...</Typography>
         ) : (
@@ -33,7 +33,7 @@ const PasswordList = () => {
                 
             </TableContainer>     
         )}
-        </>
+        </div>
     )
 };
 
