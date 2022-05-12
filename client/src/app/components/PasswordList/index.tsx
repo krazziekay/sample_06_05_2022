@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Paper, Table, TableContainer, TableRow, TableHead, TableBody, TableCell, Typography, Alert, AlertColor, Snackbar } from '@mui/material';
 import { useGetPasswordQuery, useDeletePasswordMutation, Password } from '../../__generated/schema';
-import { PasswordAddFormData, AlertObj, AlertType } from './../../types/type';
+import { AlertObj, AlertType } from './../../types/type';
 import { styles } from './index.styles';
 
 const defaultAlert = {
