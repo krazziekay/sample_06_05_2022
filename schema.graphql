@@ -4,6 +4,7 @@ type Query {
 
 type Mutation {
   addPassword(domain: String!, email: String!, pwd: String): Password!
+  deletePassword(domain: String!, email: String!, pwd: String): Password!
 }
 
 

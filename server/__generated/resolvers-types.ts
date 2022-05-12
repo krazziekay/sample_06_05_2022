@@ -17,10 +17,18 @@ export type Scalars = {
 export type Mutation = {
   __typename?: 'Mutation';
   addPassword: Password;
+  deletePassword: Password;
 };
 
 
 export type MutationAddPasswordArgs = {
+  domain: Scalars['String'];
+  email: Scalars['String'];
+  pwd?: InputMaybe<Scalars['String']>;
+};
+
+
+export type MutationDeletePasswordArgs = {
   domain: Scalars['String'];
   email: Scalars['String'];
   pwd?: InputMaybe<Scalars['String']>;
@@ -126,6 +134,7 @@ export type ResolversParentTypes = ResolversObject<{
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   addPassword?: Resolver<ResolversTypes['Password'], ParentType, ContextType, RequireFields<MutationAddPasswordArgs, 'domain' | 'email'>>;
+  deletePassword?: Resolver<ResolversTypes['Password'], ParentType, ContextType, RequireFields<MutationDeletePasswordArgs, 'domain' | 'email'>>;
 }>;
 
 export type PasswordResolvers<ContextType = any, ParentType extends ResolversParentTypes['Password'] = ResolversParentTypes['Password']> = ResolversObject<{

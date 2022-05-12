@@ -18,10 +18,18 @@ export type Scalars = {
 export type Mutation = {
   __typename?: 'Mutation';
   addPassword: Password;
+  deletePassword: Password;
 };
 
 
 export type MutationAddPasswordArgs = {
+  domain: Scalars['String'];
+  email: Scalars['String'];
+  pwd?: InputMaybe<Scalars['String']>;
+};
+
+
+export type MutationDeletePasswordArgs = {
   domain: Scalars['String'];
   email: Scalars['String'];
   pwd?: InputMaybe<Scalars['String']>;
@@ -46,12 +54,21 @@ export type GetPasswordQuery = { __typename?: 'Query', password?: Array<{ __type
 
 export type AddPasswordMutationVariables = Exact<{
   domain: Scalars['String'];
-  pwd?: InputMaybe<Scalars['String']>;
+  pwd: Scalars['String'];
   email: Scalars['String'];
 }>;
 
 
 export type AddPasswordMutation = { __typename?: 'Mutation', addPassword: { __typename?: 'Password', domain: string, email: string, pwd: string } };
+
+export type DeletePasswordMutationVariables = Exact<{
+  domain: Scalars['String'];
+  pwd: Scalars['String'];
+  email: Scalars['String'];
+}>;
+
+
+export type DeletePasswordMutation = { __typename?: 'Mutation', deletePassword: { __typename?: 'Password', domain: string, email: string, pwd: string } };
 
 
 export const GetPasswordDocument = gql`
@@ -91,7 +108,7 @@ export type GetPasswordQueryHookResult = ReturnType<typeof useGetPasswordQuery>;
 export type GetPasswordLazyQueryHookResult = ReturnType<typeof useGetPasswordLazyQuery>;
 export type GetPasswordQueryResult = Apollo.QueryResult<GetPasswordQuery, GetPasswordQueryVariables>;
 export const AddPasswordDocument = gql`
-    mutation addPassword($domain: String!, $pwd: String, $email: String!) {
+    mutation addPassword($domain: String!, $pwd: String!, $email: String!) {
   addPassword(domain: $domain, pwd: $pwd, email: $email) {
     domain
     email
@@ -127,3 +144,40 @@ export function useAddPasswordMutation(baseOptions?: Apollo.MutationHookOptions<
 export type AddPasswordMutationHookResult = ReturnType<typeof useAddPasswordMutation>;
 export type AddPasswordMutationResult = Apollo.MutationResult<AddPasswordMutation>;
 export type AddPasswordMutationOptions = Apollo.BaseMutationOptions<AddPasswordMutation, AddPasswordMutationVariables>;
+export const DeletePasswordDocument = gql`
+    mutation deletePassword($domain: String!, $pwd: String!, $email: String!) {
+  deletePassword(domain: $domain, pwd: $pwd, email: $email) {
+    domain
+    email
+    pwd
+  }
+}
+    `;
+export type DeletePasswordMutationFn = Apollo.MutationFunction<DeletePasswordMutation, DeletePasswordMutationVariables>;
+
+/**
+ * __useDeletePasswordMutation__
+ *
+ * To run a mutation, you first call `useDeletePasswordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeletePasswordMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deletePasswordMutation, { data, loading, error }] = useDeletePasswordMutation({
+ *   variables: {
+ *      domain: // value for 'domain'
+ *      pwd: // value for 'pwd'
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useDeletePasswordMutation(baseOptions?: Apollo.MutationHookOptions<DeletePasswordMutation, DeletePasswordMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeletePasswordMutation, DeletePasswordMutationVariables>(DeletePasswordDocument, options);
+      }
+export type DeletePasswordMutationHookResult = ReturnType<typeof useDeletePasswordMutation>;
+export type DeletePasswordMutationResult = Apollo.MutationResult<DeletePasswordMutation>;
+export type DeletePasswordMutationOptions = Apollo.BaseMutationOptions<DeletePasswordMutation, DeletePasswordMutationVariables>;

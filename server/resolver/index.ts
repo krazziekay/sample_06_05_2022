@@ -34,7 +34,22 @@ const resolvers: Resolvers = {
           }
         }
         return pwd;
-      }
+      },
+
+      deletePassword: (parent, args) => {
+        if (store.password) {
+          const pwd = store.password.filter((p: Password) => { 
+            return p.email === args.email && p.pwd === args.pwd && p.domain === args.domain;
+          });
+          if (pwd.length) {
+            store.password = store.password.filter((p: Password) => {
+              return p.email !== args.email || p.pwd !== args.pwd || p.domain !== args.domain;
+            });
+            return pwd[0];
+          }
+        } 
+        throw new Error('Not found');
+      },
     },
   };
 

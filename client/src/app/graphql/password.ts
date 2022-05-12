@@ -11,8 +11,18 @@ const passwordQuery = gql`
 `;
 
 const addPasswordMutation = gql`
-    mutation addPassword {
+    mutation addPassword($domain: String!, $pwd: String!, $email: String!) {
         addPassword(domain: $domain, pwd: $pwd, email: $email) {
+            domain
+            email
+            pwd
+        }
+    }
+`;
+
+const deletePasswordMutation = gql`
+    mutation deletePassword($domain: String!, $pwd: String!, $email: String!) {
+        deletePassword(domain: $domain, pwd: $pwd, email: $email) {
             domain
             email
             pwd
