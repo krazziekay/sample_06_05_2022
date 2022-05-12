@@ -2,7 +2,6 @@ import React from 'react';
 import AddPasswordCard from '../AddPasswordCard';
 import PasswordList from '../PasswordList';
 import { Typography, Grid } from '@mui/material';
-import { styles } from './index.styles';
 
 const App = () => {
   return (

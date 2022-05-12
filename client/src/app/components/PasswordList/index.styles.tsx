@@ -9,4 +9,4 @@ export const styles = {
     icon: {
         cursor: 'pointer',
     }
-};
+} as const;

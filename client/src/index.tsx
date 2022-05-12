@@ -8,7 +8,7 @@ const client = new ApolloClient({
   uri: "http://localhost:3000/"
 });
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>  

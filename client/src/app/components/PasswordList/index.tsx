@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
-import { Paper, Table, TableContainer, TableRow, TableHead, TableBody, TableCell, Typography, Alert, Snackbar } from '@mui/material';
-import { useGetPasswordQuery, useDeletePasswordMutation } from '../../__generated/schema';
+import { Paper, Table, TableContainer, TableRow, TableHead, TableBody, TableCell, Typography, Alert, AlertColor, Snackbar } from '@mui/material';
+import { useGetPasswordQuery, useDeletePasswordMutation, Password } from '../../__generated/schema';
+import { PasswordAddFormData, AlertObj, AlertType } from './../../types/type';
 import { styles } from './index.styles';
 
 const defaultAlert = {
-  visibility: false,
-  type: '',
-  message: '',
+    visibility: false,
+    type: AlertType.Success,
+    message: '',
 };
 
 const PasswordList = () => {
     const {data, loading} = useGetPasswordQuery();
-    const [alert, setAlert] = useState(defaultAlert);
+    const [alert, setAlert] = useState<AlertObj>(defaultAlert);
     const [deletePasswordMutation] = useDeletePasswordMutation();
-    const remove = async (p) => {
+    const remove = async (p: Password) => {
         try {
             await deletePasswordMutation({
                 variables: {
@@ -27,13 +28,13 @@ const PasswordList = () => {
             });
             setAlert({
                 visibility: true,
-                type: 'success',
+                type: AlertType.Success,
                 message: 'Successfully removed',
             });
         } catch(e) {
             setAlert({
                 visibility: true,
-                type: 'error',
+                type: AlertType.Error,
                 message: 'Failed to remove',
             });
         }
@@ -55,7 +56,7 @@ const PasswordList = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {data.password && data.password.map(p => (
+                        {data && data.password && data.password.map(p => (
                             <TableRow>
                                 <TableCell>{p.domain}</TableCell>
                                 <TableCell>{p.email}</TableCell>
@@ -71,8 +72,8 @@ const PasswordList = () => {
                     anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
                     onClose={() => setAlert(defaultAlert)}
                 >
-                    <Alert variant="outlined" severity={alert.type}>
-                    {alert.message}
+                    <Alert variant="outlined" severity={alert.type as unknown as AlertColor}>
+                        {alert.message}
                     </Alert>
                 </Snackbar>
             </TableContainer>     

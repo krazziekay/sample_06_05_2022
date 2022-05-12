@@ -1,5 +1,4 @@
 export const styles = {
-
   container: {
     position: 'relative',
   },
@@ -11,4 +10,4 @@ export const styles = {
     margin: '0 auto',
     textAlign: 'center',
   },
-};
+} as const;

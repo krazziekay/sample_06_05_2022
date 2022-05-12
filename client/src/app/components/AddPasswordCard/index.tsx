@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 import { useAddPasswordMutation } from '../../__generated/schema';
-import { useForm, Controller } from 'react-hook-form'; 
-import { Button, Card, CardContent, TextField, Alert, Snackbar } from '@mui/material';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form'; 
+import { Button, Card, CardContent, TextField, Alert, Snackbar, AlertColor } from '@mui/material';
+import { PasswordAddFormData, AlertObj, AlertType } from './../../types/type';
 import { styles } from './index.styles';
 
 const defaultAlert = {
   visibility: false,
-  type: '',
+  type: AlertType.Success,
   message: '',
 };
 
 const AddPasswordCard = () => {
     const [addNewPassword, setAddNewPassword] = useState(false);
-    const [alert, setAlert] = useState(defaultAlert);
-    const { handleSubmit, reset, control, formState: { errors } } = useForm();
-    const [addPassword, {loading}] = useAddPasswordMutation();
+    const [alert, setAlert] = useState<AlertObj>(defaultAlert);
+    const { handleSubmit, reset, control } = useForm<PasswordAddFormData>();
+    const [addPassword] = useAddPasswordMutation();
   
-    const onSubmit = async (data) => {
+    const onSubmit: SubmitHandler<PasswordAddFormData> = async (data) => {
       try {
         await addPassword({
           variables: {
@@ -30,13 +31,13 @@ const AddPasswordCard = () => {
         });
         setAlert({
           visibility: true,
-          type: 'success',
+          type: AlertType.Success,
           message: 'Successfully Added',
         });
       } catch(e) {
         setAlert({
           visibility: true,
-          type: 'error',
+          type: AlertType.Error,
           message: 'Failed to add',
         });
       }
@@ -55,7 +56,6 @@ const AddPasswordCard = () => {
                       <Controller
                       control={control}
                       name="domain"
-                      label="Domain"
                       rules={{ required: true }}
                       render={({ field }) => (
                           <div>
@@ -64,25 +64,23 @@ const AddPasswordCard = () => {
                       )}
                       />
                       <Controller
-                      control={control}
-                      name="email"
-                      label="Email"
-                      rules={{ required: true }}
-                      render={({ field }) => (
-                          <div>
-                            <TextField label="Email" variant="standard" {...field} />
-                          </div>
-                      )}
+                        control={control}
+                        name="email"
+                        rules={{ required: true }}
+                        render={({ field }) => (
+                            <div>
+                              <TextField label="Email" variant="standard" {...field} />
+                            </div>
+                        )}
                       />
                       <Controller
-                      control={control}
-                      name="password"
-                      label="Password"
-                      rules={{ required: true }}
-                      render={({ field }) => (
-                          <div>
-                           <TextField label="Password" type="password" variant="standard" {...field} />
-                          </div>
+                        control={control}
+                        name="password"
+                        rules={{ required: true }}
+                        render={({ field }) => (
+                            <div>
+                            <TextField label="Password" type="password" variant="standard" {...field} />
+                            </div>
                       )}
                       />
                       <br />
@@ -94,8 +92,9 @@ const AddPasswordCard = () => {
           ) : (
             <Button variant="contained" onClick={() => {
                 setAddNewPassword(true);
-                }}>
-                Add Password
+              }}
+            >
+              Add Password
             </Button>
           )}
           <Snackbar 
@@ -104,7 +103,7 @@ const AddPasswordCard = () => {
             anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
             onClose={() => setAlert(defaultAlert)}
           >
-            <Alert variant="outlined" severity={alert.type}>
+            <Alert variant="outlined" severity={alert.type as unknown as AlertColor}>
               {alert.message}
             </Alert>
           </Snackbar>
