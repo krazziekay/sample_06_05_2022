@@ -5,5 +5,8 @@ export const styles = {
     container: {
         height: '90vh',
         overflowY: 'auto'
+    },
+    icon: {
+        cursor: 'pointer',
     }
 };
