@@ -11,7 +11,7 @@ const defaultAlert = {
 };
 
 const PasswordList = () => {
-    const {data, loading} = useGetPasswordQuery();
+    const { data, loading } = useGetPasswordQuery();
     const [alert, setAlert] = useState<AlertObj>(defaultAlert);
     const [deletePasswordMutation] = useDeletePasswordMutation();
     const remove = async (p: Password) => {
@@ -31,7 +31,7 @@ const PasswordList = () => {
                 type: AlertType.Success,
                 message: 'Successfully removed',
             });
-        } catch(e) {
+        } catch (e) {
             setAlert({
                 visibility: true,
                 type: AlertType.Error,
@@ -42,45 +42,44 @@ const PasswordList = () => {
 
     return (
         <div style={styles.container}>
-        {loading ? (
-            <Typography variant="h1" gutterBottom>Loading...</Typography>
-        ) : (
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead >
-                        <TableRow>
-                            <TableCell style={styles.bolder}>Domain</TableCell>
-                            <TableCell style={styles.bolder}>Email</TableCell>
-                            <TableCell style={styles.bolder}>Password</TableCell>
-                            <TableCell style={styles.bolder}>Actions</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {data && data.password && data.password.map(p => (
+            {loading ? (
+                <Typography variant="h1" gutterBottom>Loading...</Typography>
+            ) : (
+                <TableContainer component={Paper}>
+                    <Table>
+                        <TableHead >
                             <TableRow>
-                                <TableCell>{p.domain}</TableCell>
-                                <TableCell>{p.email}</TableCell>
-                                <TableCell>{p.pwd}</TableCell>
-                                <TableCell style={styles.icon} onClick={() => remove(p)}>X</TableCell>
+                                <TableCell style={styles.bolder}>Domain</TableCell>
+                                <TableCell style={styles.bolder}>Email</TableCell>
+                                <TableCell style={styles.bolder}>Password</TableCell>
+                                <TableCell style={styles.bolder}>Actions</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-                <Snackbar 
-                    open={alert.visibility}
-                    autoHideDuration={3000}
-                    anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
-                    onClose={() => setAlert(defaultAlert)}
-                >
-                    <Alert variant="outlined" severity={alert.type as unknown as AlertColor}>
-                        {alert.message}
-                    </Alert>
-                </Snackbar>
-            </TableContainer>     
-        )}
+                        </TableHead>
+                        <TableBody>
+                            {data && data.password && data.password.map(p => (
+                                <TableRow>
+                                    <TableCell>{p.domain}</TableCell>
+                                    <TableCell>{p.email}</TableCell>
+                                    <TableCell>{p.pwd}</TableCell>
+                                    <TableCell style={styles.icon} onClick={() => remove(p)}>X</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                    <Snackbar
+                        open={alert.visibility}
+                        autoHideDuration={3000}
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                        onClose={() => setAlert(defaultAlert)}
+                    >
+                        <Alert variant="outlined" severity={alert.type as unknown as AlertColor}>
+                            {alert.message}
+                        </Alert>
+                    </Snackbar>
+                </TableContainer>
+            )}
         </div>
     )
 };
 
 export default PasswordList;
-  

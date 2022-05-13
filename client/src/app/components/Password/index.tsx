@@ -5,7 +5,7 @@ import { Typography, Grid } from '@mui/material';
 
 const App = () => {
   return (
-    <div> 
+    <div>
       <Typography variant="h3" gutterBottom>List of Passwords</Typography>
 
       <Grid container spacing={4}>
