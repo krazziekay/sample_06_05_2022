@@ -28,7 +28,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "set PORT=1234 && react-scripts start",
+    "start": "PORT=1234 react-scripts start",
     "build": "react-scripts build",
     "generate": "graphql-codegen",
     "test": "react-scripts test",
