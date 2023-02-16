@@ -1,42 +1,29 @@
-name: Deploy
-
+# This is a basic workflow to help you get started with Actions
+name: My Deployment flow
+# Controls when the action will run.
 on: [push]
-
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  deploy:
-    name: Deploy my app
-
-    runs-on: ubuntu-latest
-
+  # This workflow contains a single job called "build"
+  deploy-to-prod:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-18.04
+    name: Deploy to Production
     steps:
-      - uses: actions/checkout@v1
-
-      - uses: chrnorm/deployment-action@v2
-        name: Create GitHub deployment
-        id: deployment
+      - uses: chrnorm/deployment-action@releases/v1
+        name: Create prod deployment
+        id: deployment_prod
         with:
-          token: '${{ github.token }}'
-          environment-url: http://my-app-url.com
-          environment: production
-
-      - name: Deploy my app
+          token: "${{ github.token }}"
+          target_url: http://my-cool-app.com
+          environment: Production
+      - name: Running production deployment
         run: |
-          # add your deployment code here
-
-      - name: Update deployment status (success)
-        if: success()
-        uses: chrnorm/deployment-status@v2
+          echo Deploying to production...
+      - uses: chrnorm/deployment-status@releases/v1
+        name: Update prod deployment
         with:
-          token: '${{ github.token }}'
-          environment-url: ${{ steps.deployment.outputs.environment_url }}
-          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
-          state: 'success'
-
-      - name: Update deployment status (failure)
-        if: failure()
-        uses: chrnorm/deployment-status@v2
-        with:
-          token: '${{ github.token }}'
-          environment-url: ${{ steps.deployment.outputs.environment_url }}
-          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
-          state: 'failure'
+          token: "${{ github.token }}"
+          target_url: http://my-cool-app.com
+          state: "success"
+          deployment_id: ${{ steps.deployment_prod.outputs.deployment_id }}
