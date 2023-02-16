@@ -8,6 +8,8 @@ jobs:
   deploy-to-prod:
     runs-on: ubuntu-18.04
     name: Deploy to Production
+    permissions:
+      deployments: write
     steps:
       - uses: chrnorm/deployment-action@releases/v1
         name: Create prod deployment
